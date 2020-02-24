@@ -1,0 +1,124 @@
+@media only screen and (min-width: 340px){
+  html {
+    font-size: 12px !important;
+  }
+}
+@media only screen and (min-width: 540px){
+  html {
+    font-size: 13px !important;
+  }
+}
+@media only screen and (min-width: 720px){
+  html {
+    font-size: 14px !important;
+  }
+}
+@media only screen and (min-width: 960px){
+  html {
+    font-size: 15px !important;
+  }
+}
+@media only screen and (min-width: 1140px){
+  html {
+    font-size: 16px !important;
+  }
+}
+
+body{
+    overflow-x: hidden;
+    /*overflow-y: hidden;*/
+    margin: 0px;
+    padding: 0px;
+}
+
+html{
+    overflow-x: hidden;
+    /*overflow-y: hidden;*/
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon {
+  height: 1rem;
+  weight:1rem;
+}
+.font-content{
+	font-size:0.8rem;
+}
+.control{
+	height:1.5rem;
+	weight:1.5rem;
+}
+.control-border{
+     border: 1px dashed #000000 !important;
+}
+
+.input-sm{
+    width:2rem;
+    height:1rem;
+}
+
+.input-script{
+    height: 15rem!important;
+}
+
+.h-10 {
+  height: 10% !important;
+}
+.h-5 {
+  height: 5% !important;
+}
+
+.bg-controls{
+	background-color:#2b3551;
+	opacity: 0.9
+}
+
+.bg-dark-light{
+    background-color:#222528;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills >a.active
+ {
+  color: #fff;
+  background-color: #000000!important ;
+  opacity: 0.5
+}
+
+li:hover{
+  background-color: #000000!important ;
+  opacity: 0.9;
+  color: #fff;
+}
+
+.w-40{
+    width: 40%;
+}
+
+
+
+.search{
+    font-size: 0.1rem!important;
+}
+
+.search-input{
+    font-size: 0.8rem!important;
+}
+
+.page-size{
+    font-size: 0.8rem!important;
+}
+
+.fixed-table-pagination{
+    font-size: 0.8rem!important;
+}
+
+.set-panel{
+    height: 900px;
+
+}
+
+.select2-container{
+    font-size: 0.8rem!important;
+}
