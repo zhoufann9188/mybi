@@ -22,3 +22,25 @@ https://www.bistudio.com.cn/dashboard?group_key=d179e673bcb19de7b83bd2dea3feccc3
 
 ## 商用请联系我们免费授权，任何问题也可随时与我们联系  https://www.bistudio.com.cn
 
+
+
+## Mybi is a free tool for big data analysis. It is used by individuals or enterprises to generate real-time dashboard scenarios quickly. At present, it is maintained and open-source by chuangfan cloud team.
+
+
+### Here are the online Demos:
+
+#### Business analysis
+https://www.bistudio.com.cn/dashboard?group_key=d179e673bcb19de7b83bd2dea3feccc3&dashboard_id=1575735720933&mode=browse&uid=5
+
+
+#### Baidu Index Analysis
+https://www.bistudio.com.cn/dashboard?group_key=d179e673bcb19de7b83bd2dea3feccc3&dashboard_id=1576724272926&mode=browse&uid=5
+
+### Online free generation method
+Log in to the top right menu "console dashboard new" on the official website https://www.bistudio.com.cn, design and save your own dashboard, and embed it into any analysis system or website.
+
+
+### Code usage
+Download the HTML, JS and CSS files in the warehouse and put them into your project (in order to maintain cross platform, this part is mainly the front-end code, and the background can be customized according to the needs of the project.
+
+## For business use, please contact us for free authorization. You can contact us at any time for any questions  https://www.bistudio.com.cn
