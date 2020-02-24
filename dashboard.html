@@ -1,0 +1,2778 @@
+<!doctype html>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="icon" href="{{static_url('image/logo_mini.png')}}"/>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<html class="h-100">
+<head>
+
+<meta charset="utf-8">
+<title id="dash_title">我的仪表盘</title>
+	    <link href="{{static_url('css/bootstrap.min.css')}}" rel="stylesheet">
+		<link href="{{static_url('css/dashboard.css')}}" rel="stylesheet">
+
+		<link href="{{static_url('css/jquery-ui-1.12.1.min.css')}}" rel="stylesheet">
+		<link href="{{static_url('css/bootstrap-colorpicker.min.css')}}"  rel="stylesheet">
+        <link href="{{static_url('css/fileinput.min.css')}}" rel="stylesheet">
+		<link href="{{static_url('css/bootstrap-table-1.15.4.min.css')}}" rel="stylesheet">
+		<link href="{{static_url('css/font-awesome.css')}}" rel="stylesheet">
+		<link href="{{static_url('css/select2.min.css')}}" rel="stylesheet">
+
+
+
+
+		<!-------JS代码引入集合-->
+		<!--common-->
+		<script src="{{static_url('js/jquery-3.4.1.min.js')}}"></script>
+		<script src="{{static_url('js/jquery-ui-1.12.1.min.js')}}"></script>
+		<script src="{{static_url('js/popper.js')}}"></script>
+		<script src="{{static_url('js/bootstrap.min.js')}}"></script>
+		<script src="{{static_url('js/bootstrap-colorpicker.min.js')}}"></script>
+		<script src="{{static_url('js/fileinput.min.js')}}"></script>
+		<script src="{{static_url('js/bootstrap-table-1.15.4.min.js')}}"></script>
+		<script src="{{static_url('js/bootstrap-table-zh-CN.min.js')}}"></script>
+		<script src="{{static_url('js/fileiput-zh.js')}}"></script>
+		<script src="{{static_url('js/pub_script/pubfun.js')}}"></script>
+
+
+		<!--JS table export-->
+		<script src="{{static_url('js/bootstrap-table-export.min.js')}}"></script>
+		<!--<script src="{{static_url('js/jspdf.min.js')}}"></script>-->
+		<!--<script src="{{static_url('js/jspdf.plugin.autotable.js')}}"></script>-->
+		<script src="{{static_url('js/tableExport.min.js')}}"></script>
+
+	    <!--highchart-->
+	    <script src="{{static_url('js/highcharts.js')}}"></script>
+		<script src="{{static_url('js/highcharts-more.js')}}"></script>
+		<script src="{{static_url('js/wordcloud.js')}}"></script>
+
+	    <!--select2-->
+	    <script src="{{static_url('js/select2.full.4.0.12min.js')}}"></script>
+
+		<!--仪表盘-->
+		<!--<script src="{{static_url('js/mybi-dashboard.js')}}"></script>-->
+	    <script src="{{static_url('js/mybi-dashboard.js')}}"></script>
+
+
+
+
+
+<script>
+
+
+ window.onbeforeunload = function(){
+	 return '';
+}
+
+</script>
+
+{%block head%}
+
+{%end%}
+
+</head>
+
+<body   class="h-100 bg-dark-light">
+{%block body%}
+
+<!--顶部导航、LOGO、及按钮区域-->
+	<div id="dash_nav" class="container-fluid px-5">
+		<div class="row bg-dark-light mx-n5">
+			<div class="col-3 col-md-3 px-3 py-2 text-left">
+			<a href="#" onClick="javascript :history.back(-1);">
+				<img class="icon" src="{{static_url('image/icon/ic_arrow_back_white.png')}}">
+			</a>
+
+			<span id="dash_name" class="text-white h6">&nbsp;&nbsp;&nbsp;&nbsp;我的仪表盘</span>
+			<span id="dash_user" class="text-white-50 h6">by 创帆云</span>
+			</div>
+
+		  <div class="col-9 col-md-6 py-2">
+			<span id="info" class="text-danger font-weight-bold">推荐使用最新谷歌Chrome浏览器进行你的创意设计</span>
+		  </div>
+
+		  <div class="col-0 col-md-3 py-2 text-right">
+			<a id="dash_set" href="#">
+				<img class="icon"  src="{{static_url('image/icon/ic_brightness_5_white.png')}}" title="页面设置">
+		    </a>
+			  &nbsp;&nbsp;&nbsp;&nbsp;
+			  &nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="btn-group btn-group-sm">
+			  <button id="dash_edit" type="button" class="btn btn-secondary active"><span class="font-content">编辑</span></button>
+			  <button id="dash_browser" type="button" class="btn btn-secondary"><span class="font-content">预览</span></button>
+			  </div>
+			  &nbsp;&nbsp;&nbsp;&nbsp;
+			  <button id="dash_save" type="button" class="btn btn-primary btn-sm"><font class="font-content">保存</font></button>
+		  </div>
+		</div>
+	</div>
+
+<!--面板（包括画布)及画布区域-->
+	<div class="container-fluid  h-100">
+		<div class="row h-100">
+    <!--控件列表及画布-->
+		  <div id="panel" class="col-12 col-md-9 h-100">
+
+				<div id="controls"  class="row bg-controls border border-light p-2">
+
+
+					<a id="label" href="#" class="px-2" title="文本框">
+						<img class="control border border-0"  src="{{static_url('image/icon/ic_font_white.png')}}">
+					</a>
+
+
+					<a id="link" href="#" class="px-2" title="子网页">
+						<img class="control  border border-0"  src="{{static_url('image/icon/ic_picture_in_picture.png')}}">
+					</a>
+
+					<a id="img" href="#" class="px-2" title="图片">
+						<img class="control border border-0"  src="{{static_url('image/icon/ic_image.png')}}">
+					</a>
+
+					<a href="#" class="px-2">
+						<span class="text-white">|</span>
+					</a>
+
+					<a id="var" href="#" class="px-2" title="查询条件">
+						<img class="control border border-0"  src="{{static_url('image/icon/ic_find_in_page_white.png')}}">
+					</a>
+
+					<a id="table" href="#" class="px-2" title="表格">
+						<img class="control rounded "  src="{{static_url('image/icon/ic_table.png')}}">
+					</a>
+
+					<a id="hcBase" href="#" class="px-2" title="综合图">
+						<img class="control rounded"  src="{{static_url('image/icon/ic-histogram_chart.png')}}">
+					</a>
+
+					<a id="hcPie" href="#" class="px-2" title="饼状图">
+						<img class="control rounded "  src="{{static_url('image/icon/ic_pie_chart.png')}}">
+					</a>
+
+					<a id="hcBubble" href="#" class="px-2" title="汽泡图">
+						<img class="control rounded "  src="{{static_url('image/icon/ic_scatter_plot_white_18dp.png')}}">
+					</a>
+
+					<a id="hcGauge" href="#" class="px-2" title="仪表图">
+						<img class="control rounded "  src="{{static_url('image/icon/ic-guage_white_18dp.png')}}">
+					</a>
+
+					<a id="hcWordcloud" href="#" class="px-2" title="词云图">
+						<img class="control rounded "  src="{{static_url('image/icon/ic-cloud_white_18dp.png')}}">
+					</a>
+
+				</div>
+
+         <!--画布--->
+				<div id="canvas"  class="row h-100 border border-dark " style="position: relative;background-color: white">
+
+				</div>
+
+          </div>
+
+<!--设置面板-->
+    <!--页面设置面板-->
+
+			<div id="canvas_sets" class=" col-0 col-md-3 h-100  bg-dark-light  font-content text-white"  >
+				<div class="row border-left border-top border-bottom px-2 py-2">
+					<h6 class="text-white">页面设置</h6>
+				</div>
+
+				<div class="row p-3 align-items-center">
+						<div class="col-5">
+							背景颜色
+						</div>
+						<div class="col-7">
+							<input id="bg_color" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="(0,0,0)"/>
+						</div>
+
+				</div>
+				<div class="row p-3 align-items-center">
+						<div class="col-5">
+							背景图链接
+						</div>
+						<div class="col-7 ">
+							<input id="background_img_url"  class="w-100 form-control-sm border border-1 bg-dark text-white font-content" data-toggle="modal" data-target="#upimg" type="text"  value="上传或直接输入.."/>
+
+						</div>
+				</div>
+
+				<!--<div class="row p-3">-->
+						<!--<div class="col-5">-->
+							<!--页面缩放方式-->
+						<!--</div>-->
+						<!--<div class="col-7 ">-->
+							<!--<div class="form-check">-->
+							  <!--<input  id="screen_full" checked class="form-check-input" type="radio" name="exampleRadios" value="option1" >-->
+							  <!--<label class="form-check-label" for="screen_full">-->
+								<!--全屏铺满-->
+							  <!--</label>-->
+							<!--</div>-->
+							<!--<div class="form-check">-->
+							  <!--<input  id="screen_bywidth" class="form-check-input" type="radio" name="exampleRadios" value="option2" checked>-->
+							  <!--<label class="form-check-label" for="screen_bywidth">-->
+								<!--按宽度铺满-->
+							  <!--</label>-->
+							<!--</div>-->
+							<!--<div class="form-check">-->
+							  <!--<input id="screen_byheight" class="form-check-input" type="radio" name="exampleRadios"  value="option3" >-->
+							  <!--<label class="form-check-label" for="screen_byheight">-->
+								<!--按高度铺满-->
+							  <!--</label>-->
+							<!--</div>-->
+
+						<!--</div>-->
+				<!--</div>-->
+
+				<!--<div class="row p-3">-->
+						<!--<div class="col-5">-->
+							<!--MyBi水印-->
+						<!--</div>-->
+						<!--<div class="col-7 ">-->
+							<!--<div class="form-check">-->
+							  <!--<input class="form-check-input" type="checkbox" value="" id="logo" checked>-->
+
+							<!--</div>-->
+						<!--</div>-->
+				<!--</div>-->
+			</div>
+
+    <!--Label设置面板-->
+			<div id="label_sets" class="col-0 col-md-3 h-100   font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#label_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#label_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#label_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">文本设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+                    <!--label样式-->
+					<div id="label_style" class="tab-pane fade show active ">
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									文本颜色
+								</div>
+								<div class="col-7">
+									<input id="label_color" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="(0,0,0)"/>
+								</div>
+
+						</div>
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									字体
+								</div>
+								<div class="col-7 ">
+                                    <select id="label_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option value="SimSun">宋体</option>
+                                        <option  value="SimHei">黑体</option>
+                                        <option  value="Microsoft YaHei">微软雅黑</option>
+                                        <option  value="LiSu">隶书</option>
+                                        <option  value="YouYuan">幼圆</option>
+                                        <option  value="STXinwei">华文新魏</option>
+                                        <option  value="FZYaoti">方正姚体</option>
+                                    </select>
+								</div>
+						</div>
+
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									字号
+								</div>
+								<div class="col-7 ">
+ 									<input id="label_px" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+						</div>
+
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									字体粗细
+								</div>
+								<div class="col-7 ">
+                                    <select id="label_weight" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option value="400">正常</option>
+                                        <option value="700">加粗</option>
+                                    </select>
+								</div>
+						</div>
+
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									超链接配置
+								</div>
+								<div class="col-7 ">
+  									<input id="label_href" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					</div>
+                    <!--label数据-->
+					<div id="label_data" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									数据列映射
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									数据列
+								</div>
+								<div class="col-4">
+                                    映射
+
+								</div>
+								<div class="col-5">
+ 									状态
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center ">
+								<div class="col-3">
+									value
+								</div>
+								<div class="col-4">
+                                    <input id="label_value" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5 ">
+ 									* 可选
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									url
+								</div>
+								<div class="col-4">
+                                    <input id="label_url" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5">
+ 									* 可选
+
+								</div>
+						</div>
+						<div class="row bg-dark ">
+								<div class="col-12 border-blue p-2">
+									数据源类型
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+                                <select id="label_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+                                </select>
+                            </div>
+						</div>
+
+                        <!--数据源切换1:静态数据脚本设置-->
+						<div id="label_static_data" class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+
+                                <textarea id="label_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                            </div>
+						</div>
+
+                        <!--数据源切换2:Excel/CSV脚本设置-->
+						<div id="label_excel_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="label_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+                            </div>
+						</div>
+
+                        <!--数据源切换3:数据API-->
+						<div id="label_api_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> URL:</div>
+                                </div>
+                               <div class="row">
+                                  <div class="col-12"><span> 可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br><a id="label_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a></div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="label_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                                  </div>
+                                </div>
+								<button id="label_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+                        <!--数据源切换4:数据库-->
+						<div id="label_dbms_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="label_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+
+                               <div class="row">
+                                  <div class="col-12"> SQL:</div>
+                                </div>
+								<div class="row">
+									<div class="col-12">
+										<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)</span>
+									</div>
+								</div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="label_sql_script" class="w-100 form-control bg-dark text-white input-script font-content"  ></textarea>
+                                  </div>
+                                </div>
+								<button id="label_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+ 						<div id="label_is_refresh" class="row p-2 mx-1 align-items-center">
+                            <div class="col-12" >
+                                <input id="label_input_refresh" class="form-check-input" type="checkbox"  value="">
+                                      <label class="form-check-label" for="label_input_refresh">
+                                          自动更新请求每
+                                      </label>
+                                <input id="label_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+                            </div>
+						</div>
+
+
+					</div>
+                     <!--label交互-->
+					<div id="label_interact" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+    <!--img设置面板-->
+			<div id="img_sets" class="col-0 col-md-3 h-100 set-panel  font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills " >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#img_style">样式</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">图片设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+                    <!--img样式-->
+					<div id="img_style" class="tab-pane fade show active ">
+                        <div class="row p-3 align-items-center">
+                                <div class="col-5">
+                                    图片链接
+                                </div>
+                                <div class="col-7 ">
+                                    <input id="img_url"  class="w-100 form-control-sm border border-1 bg-dark text-white font-content" data-toggle="modal" data-target="#upControlImg" type="text"  value="上传或直接输入.."/>
+
+                                </div>
+                        </div>
+
+                        <div class="row p-3  898798 align-items-center">
+                                <div class="col-5">
+                                    透明度
+                                </div>
+                                <div class="col-7 ">
+                                    <input id="img_transparent"  class="w-100 form-control-sm border border-1 bg-dark text-white font-content" value=100 />
+
+                                </div>
+                        </div>
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									超链接配置
+								</div>
+								<div class="col-7 ">
+  									<input id="img_href" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+
+	<!--子网页设置面板-->
+			<div id="link_sets" class="col-0 col-md-3 h-100 set-panel  font-content text-white bg-dark-light" style="display: none;overflow-y: auto"	 >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#link_style">样式</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">内嵌网页设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+                    <!--link样式-->
+					<div id="link_style" class="tab-pane fade show active ">
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									超链接配置
+								</div>
+								<div class="col-7 ">
+  									<input id="link_href" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+
+    <!--表格设置面板-->
+			<div id="table_sets" class="col-0 col-md-3 h-100  set-panel  font-content text-white bg-dark-light" style="display: none;overflow-y: auto">
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#table_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#table_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#table_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">表格设置 V1.0  <a href="http://blog.bistudio.com.cn/?p=15824560673353514" target="_blank">教程</a> </h6>
+				</div>
+				<div  class="tab-content">
+					<!--表格样式-->
+					<div id="table_style" class="tab-pane fade show active ">
+						<div class="row"><div class="col-12"></div></div>
+						<!--表头设置-->
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									表头
+								</div>
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									背景颜色
+								</div>
+								<div class="col-7">
+									<input id="table_tr_color" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+									<div class="col-5">
+										文本对齐
+									</div>
+									<div class="col-7 ">
+										<select id="table_tr_align" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											<option value="left">左对齐</option>
+											<option value="center">居中对齐</option>
+											<option value="right">右对齐</option>
+										</select>
+									</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+									<div class="col-5">
+										字体
+									</div>
+									<div class="col-7 ">
+										<select id="table_tr_font_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											<option value="SimSun">宋体</option>
+											<option value="SimHei">黑体</option>
+											<option value="Microsoft YaHei">微软雅黑</option>
+											<option value="LiSu">隶书</option>
+											<option value="YouYuan">幼圆</option>
+											<option value="STXinwei">华文新魏</option>
+											<option value="FZYaoti">方正姚体</option>
+										</select>
+									</div>
+					   </div>
+
+						<div class="row p-2 align-items-center">
+									<div class="col-5">
+										文本颜色
+									</div>
+									<div class="col-7">
+										<input id="table_tr_font_color" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="(0,0,0)"/>
+									</div>
+
+					   </div>
+
+					   <div class="row p-2 align-items-center">
+									<div class="col-5">
+										字号
+									</div>
+									<div class="col-7 ">
+										<input id="table_tr_font_px" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+									</div>
+					  </div>
+
+					  <div class="row p-2 align-items-center">
+									<div class="col-5">
+										表体风格
+									</div>
+
+									<div class="col-7 ">
+										<select id="table_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											 <option value="default-table">默认表格</option>
+											<option value="primary">商务蓝</option>
+											<option value="secondary">低调灰</option>
+											<option value="dark">简洁黑</option>
+											<option value="success">环保绿</option>
+											 <option value="warning">水果橙</option>
+											<option value="danger">鲜艳红</option>
+											<option value="info">微软绿</option>
+										</select>
+									</div>
+
+					</div>
+
+					<!--数据列设置-->
+					<div class="row bg-dark">
+							<div class="col-10 border-blue p-2">
+								数据列
+							</div>
+
+							<div class="col-1 border-blue p-2">
+								<a id="add_col" href="#" >+</a>
+							</div>
+
+							<div class="col-1 border-blue p-2">
+								 <a id="del_col" href="#"> -</a>
+							</div>
+					</div>
+
+					<div class="row ">
+						<div class="col-12 p-1">
+						<!--tab标签页  切换数据列表-->
+							<nav id="table_columns" class="nav nav-pills" >
+
+							</nav>
+						</div>
+					</div>
+						<!--数据列pane-->
+						<div id="th1" class="tab-pane fade show active">
+							<div class="row p-2 align-items-center">
+									<div class="col-5">
+										列字段
+									</div>
+									<div class="col-7 ">
+										<input id="table_col_id" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+									</div>
+							</div>
+
+							<div class="row p-2 align-items-center">
+									<div class="col-5">
+										列显示
+									</div>
+									<div class="col-7 ">
+										<input id="table_col_name" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+									</div>
+							</div>
+
+							<div class="row p-2 align-items-center">
+									<div class="col-5">
+										文本对齐
+									</div>
+									<div class="col-7 ">
+										<select id="table_th_align" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											<option value="left">左对齐</option>
+											<option value="center">居中对齐</option>
+											<option value="right">右对齐</option>
+										</select>
+									</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+									<div class="col-5">
+										字体
+									</div>
+									<div class="col-7 ">
+										<select id="table_th_font_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											<option value="SimSun">宋体</option>
+											<option value="SimHei">黑体</option>
+											<option value="Microsoft YaHei">微软雅黑</option>
+											<option value="LiSu">隶书</option>
+											<option value="YouYuan">幼圆</option>
+											<option value="STXinwei">华文新魏</option>
+											<option value="FZYaoti">方正姚体</option>
+										</select>
+									</div>
+					   </div>
+
+						<div class="row p-2 align-items-center">
+									<div class="col-5">
+										文本颜色
+									</div>
+									<div class="col-7">
+										<input id="table_th_font_color" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="(0,0,0)"/>
+									</div>
+
+					   </div>
+
+					   <div class="row p-2 align-items-center">
+									<div class="col-5">
+										字号
+									</div>
+									<div class="col-7 ">
+										<input id="table_th_font_px" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+									</div>
+					  </div>
+
+					  <div class="row p-2 align-items-center">
+									<div class="col-5">
+										字体粗细
+									</div>
+									<div class="col-7 ">
+										<select id="table_th_font_weight" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											<option value="400">正常</option>
+											<option value="700">加粗</option>
+										</select>
+									</div>
+					</div>
+
+				</div>
+			</div>
+					<!--表格数据-->
+					<div id="table_data" class="tab-pane fade">
+							<div class="row bg-dark">
+									<div class="col-12 border-blue p-2">
+										数据列映射
+									</div>
+
+							</div>
+							<div class="row p-2 align-items-center text-center">
+									<div class="col-3">
+										数据列
+									</div>
+									<div class="col-4">
+										映射
+
+									</div>
+									<div class="col-5">
+										状态
+
+									</div>
+							</div>
+
+							<div class="row p-2 align-items-center text-center ">
+									<div class="col-3">
+										任意
+									</div>
+									<div class="col-4">
+										任意
+
+									</div>
+									<div class="col-5 ">
+										配置完成
+
+
+									</div>
+							</div>
+
+							<div class="row bg-dark ">
+									<div class="col-12 border-blue p-2">
+										数据源类型
+									</div>
+							</div>
+
+							<div class="row p-2 align-items-center text-center">
+								<div class="col-12" >
+									<select id="table_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+									</select>
+								</div>
+							</div>
+
+							<!--数据源切换1:静态数据脚本设置-->
+							<div id="table_static_data" class="row p-2 align-items-center text-center">
+								<div class="col-12" >
+
+									<textarea id="table_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+								</div>
+							</div>
+
+							<!--数据源切换2:Excel/CSV脚本设置-->
+							<div id="table_excel_data" class="row p-2" style="display: none">
+								<div class="col-12">
+								   <div class="row">
+									  <div class="col-12"> 选择已有数据源:</div>
+									</div>
+									<div class="row p-1">
+									  <div class="col-9">
+										 <select id="table_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											<option>数据1</option>
+											<option>数据2</option>
+										</select>
+									  </div>
+										  <div class="col-3 align-items-end">
+										   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+										  </div>
+									</div>
+								</div>
+							</div>
+
+							<!--数据源切换3:数据API-->
+							<div id="table_api_data" class="row p-2" style="display: none">
+								<div class="col-12">
+								   <div class="row">
+									  <div class="col-12"> URL:</div>
+									</div>
+								   <div class="row">
+									  <div class="col-12"><span> 可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br><a id="table_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a></div>
+									</div>
+									<div class="row">
+									  <div class="col-12">
+										<textarea id="table_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+									  </div>
+									</div>
+
+									<button id="table_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+								</div>
+							</div>
+
+							<!--数据源切换4:数据库-->
+							<div id="table_dbms_data" class="row p-2" style="display: none">
+								<div class="col-12">
+
+								   <div class="row">
+									  <div class="col-12"> 选择已有数据源:</div>
+									</div>
+									<div class="row p-1">
+									  <div class="col-9">
+										 <select id="table_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+											<option>数据1</option>
+											<option>数据2</option>
+										</select>
+									  </div>
+										  <div class="col-3 align-items-end">
+										   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+										  </div>
+									</div>
+
+								   <div class="row">
+									  <div class="col-12"> SQL:</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)</span>
+										</div>
+									</div>
+									<div class="row">
+									  <div class="col-12">
+										<textarea id="table_sql_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+									  </div>
+									</div>
+									<button id="table_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+								</div>
+							</div>
+
+							<div id="table_is_refresh" class="row p-2 mx-1 align-items-center">
+								<div class="col-12" >
+									<input id="table_input_refresh" class="form-check-input" type="checkbox" value="" >
+										  <label class="form-check-label" for="label_is_refresh">
+											  自动更新请求每
+										  </label>
+									<input id="table_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+								</div>
+							</div>
+
+
+					</div>
+					<!--表格交互-->
+					<div id="table_interact" class="tab-pane fade ">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+    <!--Var查询条件设置面板-->
+			<div id="var_sets" class="col-0 col-md-3 h-100 set-panel border  font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row ">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#var_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#var_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#var_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">查询条件设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+                    <!--var样式-->
+					<div id="var_style" class="tab-pane fade show active ">
+						<div class="row p-3 align-items-center">
+								<div class="col-5">
+									唯一标识(英文)
+								</div>
+								<div class="col-7">
+									<input id="var_id" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+					</div>
+                    <!--var数据-->
+					<div id="var_data" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									数据列映射
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									数据列
+								</div>
+								<div class="col-4">
+                                    映射
+
+								</div>
+								<div class="col-5">
+ 									状态
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center ">
+								<div class="col-3">
+									value
+								</div>
+								<div class="col-4">
+                                    <input id="var_value" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5 ">
+ 									* 可选
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									url
+								</div>
+								<div class="col-4">
+                                    <input id="var_url" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5">
+ 									* 可选
+
+								</div>
+						</div>
+						<div class="row bg-dark ">
+								<div class="col-12 border-blue p-2">
+									数据源类型
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+                                <select id="var_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+                                </select>
+                            </div>
+						</div>
+
+                        <!--数据源切换1:静态数据脚本设置-->
+						<div id="var_static_data" class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+
+                                <textarea id="var_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                            </div>
+						</div>
+
+                        <!--数据源切换2:Excel/CSV脚本设置-->
+						<div id="var_excel_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="var_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+                            </div>
+						</div>
+
+                        <!--数据源切换3:数据API-->
+						<div id="var_api_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> URL:</div>
+                                </div>
+                               <div class="row">
+                                  <div class="col-12"><span> 可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br>注意:列名称需是"id"、"text"形式
+									  <br><a id="var_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a>
+								  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="var_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                                  </div>
+                                </div>
+								<button id="var_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+                        <!--数据源切换4:数据库-->
+						<div id="var_dbms_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="var_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+
+                               <div class="row">
+                                  <div class="col-12"> SQL:</div>
+                                </div>
+								<div class="row">
+									<div class="col-12">
+										<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)<br>注意:列名称需是"id"、"text"形式</span>
+									</div>
+								</div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="var_sql_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+                                  </div>
+                                </div>
+								<button id="var_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+ 						<div id="var_is_refresh" class="row p-2 mx-1 align-items-center">
+                            <div class="col-12" >
+                                <input id="var_input_refresh" class="form-check-input" type="checkbox" value="">
+                                      <var class="form-check-var" for="var_input_refresh">
+                                          自动更新请求每
+                                      </var>
+                                <input id="var_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+                            </div>
+						</div>
+
+
+					</div>
+                     <!--var交互-->
+					<div id="var_interact" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+
+					</div>
+				</div>
+				</div>
+	<!--HighCharts 基本图表(默认columns)设置面板-->
+			<div id="hcBase_sets" class="col-0 col-md-3 h-100 set-panel border  font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#hcBase_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#hcBase_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#hcBase_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">基本类型图设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+                    <!--hcBase样式-->
+					<div id="hcBase_style" class="tab-pane fade show active ">
+						<div class="row bg-dark">
+							<div class="col-12 border-blue p-2">
+								全局设置
+							</div>
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									标题:
+								</div>
+								<div class="col-7">
+									<input id="hcBase_title" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									副标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcBase_subtitle" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									纵标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcBase_y_title" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									背景颜色
+								</div>
+								<div class="col-7">
+									<input id="hcBase_backcolor" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					  <div class="row p-2 align-items-center">
+							<div class="col-5">
+								图表风格
+							</div>
+
+							<div class="col-7 ">
+								<select id="hcBase_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+									 <option value="theme_default">默认样式</option>
+									<option value="theme_dark_blue">商务蓝</option>
+									<option value="theme_dark_light">简洁黑</option>
+									<option value="theme_gray">低调灰</option>
+									<option value="theme_grid">格栅表盘</option>
+									<option value="theme_sand">热情沙滩</option>
+
+								</select>
+							</div>
+					  </div>
+
+					  <div class="row p-2 align-items-center">
+							<div class="col-5">
+								图表类型
+							</div>
+
+							<div class="col-7 ">
+								<select id="hcBase_chart" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+									<option value="column">柱形图</option>
+									<option value="line">折线图</option>
+									<option value="spline">曲线图</option>
+									<option value="area">区域图</option>
+									<option value="bar">条形图</option>
+									<option value="scatter">点状图</option>
+								</select>
+							</div>
+					  </div>
+
+					  <div class="row p-2 align-items-center">
+							<div class="col-5">
+								组合曲线
+							</div>
+
+							<div class="col-7 ">
+								<select id="hcBase_combine_line" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+									<option value="">无</option>
+								</select>
+							</div>
+					  </div>
+
+
+					</div>
+
+                    <!--hcBase数据-->
+					<div id="hcBase_data" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									数据列映射
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									数据列
+								</div>
+								<div class="col-4">
+                                    映射
+
+								</div>
+								<div class="col-5">
+ 									状态
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center ">
+								<div class="col-3">
+									value
+								</div>
+								<div class="col-4">
+                                    <input id="hcBase_value" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5 ">
+ 									* 可选
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									url
+								</div>
+								<div class="col-4">
+                                    <input id="hcBase_url" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5">
+ 									* 可选
+
+								</div>
+						</div>
+						<div class="row bg-dark ">
+								<div class="col-12 border-blue p-2">
+									数据源类型
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+                                <select id="hcBase_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+                                </select>
+                            </div>
+						</div>
+
+                        <!--数据源切换1:静态数据脚本设置-->
+						<div id="hcBase_static_data" class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+
+                                <textarea id="hcBase_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                            </div>
+						</div>
+
+                        <!--数据源切换2:Excel/CSV脚本设置-->
+						<div id="hcBase_excel_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcBase_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+                            </div>
+						</div>
+
+                        <!--数据源切换3:数据API-->
+						<div id="hcBase_api_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> URL:</div>
+                                </div>
+                               <div class="row">
+                                  <div class="col-12"><span>可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br><a id="hcBase_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a></div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcBase_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                                  </div>
+                                </div>
+								<button id="hcBase_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+                        <!--数据源切换4:数据库-->
+						<div id="hcBase_dbms_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcBase_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+
+                               <div class="row">
+                                  <div class="col-12"> SQL:</div>
+                                </div>
+								<div class="row">
+									<div class="col-12">
+										<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)</span>
+									</div>
+								</div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcBase_sql_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+                                  </div>
+                                </div>
+								<button id="hcBase_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+ 						<div id="hcBase_is_refresh" class="row p-2 mx-1 align-items-center">
+                            <div class="col-12" >
+                                <input id="hcBase_input_refresh" class="form-check-input" type="checkbox" value="">
+                                      <hcBase class="form-check-hcBase" for="hcBase_input_refresh">
+                                          自动更新请求每
+                                      </hcBase>
+                                <input id="hcBase_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+                            </div>
+						</div>
+
+
+					</div>
+                     <!--hcBase交互-->
+					<div id="hcBase_interact" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+	<!--HighCharts pie图表设置面板-->
+			<div id="hcPie_sets" class="col-0 col-md-3 h-100 set-panel border  font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#hcPie_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#hcPie_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#hcPie_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">饼状图设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+
+                    <!--hcPie样式-->
+					<div id="hcPie_style" class="tab-pane fade show active ">
+						<div class="row bg-dark">
+							<div class="col-12 border-blue p-2">
+								全局设置
+							</div>
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									标题:
+								</div>
+								<div class="col-7">
+									<input id="hcPie_title" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									副标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcPie_subtitle" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									背景颜色
+								</div>
+								<div class="col-7">
+									<input id="hcPie_backcolor" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					  <div class="row p-2 align-items-center">
+							<div class="col-5">
+								图表风格
+							</div>
+
+							<div class="col-7 ">
+								<select id="hcPie_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+									 <option value="theme_default">默认样式</option>
+									<option value="theme_dark_blue">商务蓝</option>
+									<option value="theme_dark_light">简洁黑</option>
+									<option value="theme_gray">低调灰</option>
+									<option value="theme_grid">格栅表盘</option>
+									<option value="theme_sand">热情沙滩</option>
+
+								</select>
+							</div>
+					  </div>
+
+					</div>
+                    <!--hcPie数据-->
+					<div id="hcPie_data" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									数据列映射
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									数据列
+								</div>
+								<div class="col-4">
+                                    映射
+
+								</div>
+								<div class="col-5">
+ 									状态
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center ">
+								<div class="col-3">
+									value
+								</div>
+								<div class="col-4">
+                                    <input id="hcPie_value" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5 ">
+ 									* 可选
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									url
+								</div>
+								<div class="col-4">
+                                    <input id="hcPie_url" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5">
+ 									* 可选
+
+								</div>
+						</div>
+						<div class="row bg-dark ">
+								<div class="col-12 border-blue p-2">
+									数据源类型
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+                                <select id="hcPie_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+                                </select>
+                            </div>
+						</div>
+
+                        <!--数据源切换1:静态数据脚本设置-->
+						<div id="hcPie_static_data" class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+
+                                <textarea id="hcPie_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                            </div>
+						</div>
+
+                        <!--数据源切换2:Excel/CSV脚本设置-->
+						<div id="hcPie_excel_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcPie_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+                            </div>
+						</div>
+
+                        <!--数据源切换3:数据API-->
+						<div id="hcPie_api_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> URL:</div>
+                                </div>
+                               <div class="row">
+                                  <div class="col-12"><span> 可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br><a id="hcPie_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a></div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcPie_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                                  </div>
+                                </div>
+								<button id="hcPie_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+                        <!--数据源切换4:数据库-->
+						<div id="hcPie_dbms_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcPie_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+
+                               <div class="row">
+                                  <div class="col-12"> SQL:</div>
+                                </div>
+								<div class="row">
+									<div class="col-12">
+										<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)</span>
+									</div>
+								</div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcPie_sql_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+                                  </div>
+                                </div>
+								<button id="hcPie_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+ 						<div id="hcPie_is_refresh" class="row p-2 mx-1 align-items-center">
+                            <div class="col-12" >
+                                <input id="hcPie_input_refresh" class="form-check-input" type="checkbox" value="">
+                                      <hcPie class="form-check-hcPie" for="hcPie_input_refresh">
+                                          自动更新请求每
+                                      </hcPie>
+                                <input id="hcPie_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+                            </div>
+						</div>
+
+
+					</div>
+                     <!--hcPie交互-->
+					<div id="hcPie_interact" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+	<!--HighCharts bubble图表设置面板-->
+			<div id="hcBubble_sets" class="col-0 col-md-3 h-100 set-panel border  font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#hcBubble_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#hcBubble_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#hcBubble_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">汽泡图设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+
+                    <!--hcBubble样式-->
+					<div id="hcBubble_style" class="tab-pane fade show active ">
+
+						<div class="row bg-dark">
+							<div class="col-12 border-blue p-2">
+								全局设置
+							</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									标题:
+								</div>
+								<div class="col-7">
+									<input id="hcBubble_title" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									副标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcBubble_subtitle" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									纵标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcBubble_y_title" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+						</div>
+
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									背景颜色
+								</div>
+								<div class="col-7">
+									<input id="hcBubble_backcolor" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					  <div class="row p-2 align-items-center">
+							<div class="col-5">
+								图表风格
+							</div>
+
+							<div class="col-7 ">
+								<select id="hcBubble_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+									 <option value="theme_default">默认样式</option>
+									<option value="theme_dark_blue">商务蓝</option>
+									<option value="theme_dark_light">简洁黑</option>
+									<option value="theme_gray">低调灰</option>
+									<option value="theme_grid">格栅表盘</option>
+									<option value="theme_sand">热情沙滩</option>
+
+								</select>
+							</div>
+					  </div>
+
+					</div>
+                    <!--hcBubble数据-->
+					<div id="hcBubble_data" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									数据列映射
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									数据列
+								</div>
+								<div class="col-4">
+                                    映射
+
+								</div>
+								<div class="col-5">
+ 									状态
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center ">
+								<div class="col-3">
+									value
+								</div>
+								<div class="col-4">
+                                    <input id="hcBubble_value" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5 ">
+ 									* 可选
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									url
+								</div>
+								<div class="col-4">
+                                    <input id="hcBubble_url" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5">
+ 									* 可选
+
+								</div>
+						</div>
+						<div class="row bg-dark ">
+								<div class="col-12 border-blue p-2">
+									数据源类型
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+                                <select id="hcBubble_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+                                </select>
+                            </div>
+						</div>
+
+                        <!--数据源切换1:静态数据脚本设置-->
+						<div id="hcBubble_static_data" class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+
+                                <textarea id="hcBubble_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                            </div>
+						</div>
+
+                        <!--数据源切换2:Excel/CSV脚本设置-->
+						<div id="hcBubble_excel_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcBubble_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+                            </div>
+						</div>
+
+                        <!--数据源切换3:数据API-->
+						<div id="hcBubble_api_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> URL:</div>
+                                </div>
+                               <div class="row">
+                                  <div class="col-12"><span> 可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br><a id="hcBubble_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a></div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcBubble_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                                  </div>
+                                </div>
+								<button id="hcBubble_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+                        <!--数据源切换4:数据库-->
+						<div id="hcBubble_dbms_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcBubble_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+
+                               <div class="row">
+                                  <div class="col-12"> SQL:</div>
+                                </div>
+								<div class="row">
+									<div class="col-12">
+										<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)</span>
+									</div>
+								</div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcBubble_sql_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+                                  </div>
+                                </div>
+								<button id="hcBubble_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+ 						<div id="hcBubble_is_refresh" class="row p-2 mx-1 align-items-center">
+                            <div class="col-12" >
+                                <input id="hcBubble_input_refresh" class="form-check-input" type="checkbox" value="">
+                                      <hcBubble class="form-check-hcBubble" for="hcBubble_input_refresh">
+                                          自动更新请求每
+                                      </hcBubble>
+                                <input id="hcBubble_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+                            </div>
+						</div>
+
+
+					</div>
+                     <!--hcBubble交互-->
+					<div id="hcBubble_interact" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+	<!--HighCharts gauge图表设置面板-->
+			<div id="hcGauge_sets" class="col-0 col-md-3 h-100 set-panel border  font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#hcGauge_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#hcGauge_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#hcGauge_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">仪表盘设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+
+                    <!--hcGauge样式-->
+					<div id="hcGauge_style" class="tab-pane fade show active ">
+						<!--全局设置-->
+						<div class="row bg-dark">
+							<div class="col-12 border-blue p-2">
+								全局设置
+							</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									标题:
+								</div>
+								<div class="col-7">
+									<input id="hcGauge_title" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									副标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcGauge_subtitle" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									表盘标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcGauge_boardtitle" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									背景颜色
+								</div>
+								<div class="col-7">
+									<input id="hcGauge_backcolor" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					  <div class="row p-2 align-items-center">
+							<div class="col-5">
+								图表风格
+							</div>
+
+							<div class="col-7 ">
+								<select id="hcGauge_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+									 <option value="theme_default">默认样式</option>
+									<option value="theme_dark_blue">商务蓝</option>
+									<option value="theme_dark_light">简洁黑</option>
+									<option value="theme_gray">低调灰</option>
+								</select>
+							</div>
+					  </div>
+
+						<div class="row bg-dark">
+							<div class="col-12 border-blue p-2">
+								数据范围
+							</div>
+
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									<input id="hcGauge_from1" class="w-40 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="1"/>
+									至
+									<input id="hcGauge_to1" class="w-40 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="1"/>
+								</div>
+
+								<div class="col-7">
+									颜色  <input id="hcGauge_color1" class="w-75 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value=""/>
+								</div>
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									<input id="hcGauge_from2" class="w-40 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="1"/>
+									至
+									<input id="hcGauge_to2" class="w-40 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="1"/>
+								</div>
+
+								<div class="col-7">
+									颜色  <input id="hcGauge_color2" class="w-75 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value=""/>
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									<input id="hcGauge_from3" class="w-40 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="1"/>
+									至
+									<input id="hcGauge_to3" class="w-40 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="1"/>
+								</div>
+
+								<div class="col-7">
+									颜色  <input id="hcGauge_color3" class="w-75 form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value=""/>
+								</div>
+						</div>
+
+
+
+					</div>
+                    <!--hcGauge数据-->
+					<div id="hcGauge_data" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									数据列映射
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									数据列
+								</div>
+								<div class="col-4">
+                                    映射
+
+								</div>
+								<div class="col-5">
+ 									状态
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center ">
+								<div class="col-3">
+									value
+								</div>
+								<div class="col-4">
+                                    <input id="hcGauge_value" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5 ">
+ 									* 可选
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									url
+								</div>
+								<div class="col-4">
+                                    <input id="hcGauge_url" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5">
+ 									* 可选
+
+								</div>
+						</div>
+						<div class="row bg-dark ">
+								<div class="col-12 border-blue p-2">
+									数据源类型
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+                                <select id="hcGauge_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+                                </select>
+                            </div>
+						</div>
+
+                        <!--数据源切换1:静态数据脚本设置-->
+						<div id="hcGauge_static_data" class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+
+                                <textarea id="hcGauge_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                            </div>
+						</div>
+
+                        <!--数据源切换2:Excel/CSV脚本设置-->
+						<div id="hcGauge_excel_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcGauge_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+                            </div>
+						</div>
+
+                        <!--数据源切换3:数据API-->
+						<div id="hcGauge_api_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> URL:</div>
+                                </div>
+                               <div class="row">
+                                  <div class="col-12"><span> 可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br><a id="hcGauge_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a></div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcGauge_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                                  </div>
+                                </div>
+								<button id="hcGauge_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+                        <!--数据源切换4:数据库-->
+						<div id="hcGauge_dbms_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcGauge_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+
+                               <div class="row">
+                                  <div class="col-12"> SQL:</div>
+                                </div>
+								<div class="row">
+									<div class="col-12">
+										<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)</span>
+									</div>
+								</div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcGauge_sql_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+                                  </div>
+                                </div>
+								<button id="hcGauge_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+ 						<div id="hcGauge_is_refresh" class="row p-2 mx-1 align-items-center">
+                            <div class="col-12" >
+                                <input id="hcGauge_input_refresh" class="form-check-input" type="checkbox" value="">
+                                      <label class="form-check-hcGauge" for="hcGauge_input_refresh">
+                                          自动更新请求每
+                                      </label>
+                                <input id="hcGauge_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+                            </div>
+						</div>
+
+
+					</div>
+                     <!--hcGauge交互-->
+					<div id="hcGauge_interact" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+	<!--HighCharts wordcloud设置面板-->
+			<div id="hcWordcloud_sets" class="col-0 col-md-3 h-100 set-panel  font-content text-white bg-dark-light" style="display: none;overflow-y: auto" >
+                <div class="row border-top">
+                    <div class="col-12 p-1">
+				<!--tab标签页-->
+                    <nav class="nav nav-pills" >
+                      <a class="flex-sm-fill text-sm-center nav-link text-white active" data-toggle="pill" href="#hcWordcloud_style">样式</a>
+                      <a class="flex-sm-fill text-sm-center nav-link  text-white" data-toggle="pill" href="#hcWordcloud_data">数据</a>
+                      <a class="flex-sm-fill text-sm-center nav-link text-white"  data-toggle="pill" href="#hcWordcloud_interact">交互</a>
+                    </nav>
+                    </div>
+                </div>
+				<!--标题-->
+				<div class="row border-left border-top  border-bottom">
+					<h6 class="text-white p-2">词云图设置 V1.0</h6>
+				</div>
+				<!--tab标签内容-->
+				<div  class="tab-content">
+											<!--表头设置-->
+					<div class="row bg-dark">
+						<div class="col-12 border-blue p-2">
+							全局设置
+						</div>
+					</div>
+                    <!--hcWordcloud样式-->
+					<div id="hcWordcloud_style" class="tab-pane fade show active ">
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									标题:
+								</div>
+								<div class="col-7">
+									<input id="hcWordcloud_title" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									副标题
+								</div>
+								<div class="col-7 ">
+ 									<input id="hcWordcloud_subtitle" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+
+						<div class="row p-2 align-items-center">
+								<div class="col-5">
+									背景颜色
+								</div>
+								<div class="col-7">
+									<input id="hcWordcloud_backcolor" class="w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+								</div>
+						</div>
+
+
+					  <div class="row p-2 align-items-center">
+							<div class="col-5">
+								图表风格
+							</div>
+
+							<div class="col-7 ">
+								<select id="hcWordcloud_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+									 <option value="theme_default">默认样式</option>
+									<option value="theme_dark_blue">商务蓝</option>
+									<option value="theme_dark_light">简洁黑</option>
+									<option value="theme_gray">低调灰</option>
+									<option value="theme_sand">热情沙滩</option>
+
+								</select>
+							</div>
+					  </div>
+
+					</div>
+                    <!--hcWordcloud数据-->
+					<div id="hcWordcloud_data" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									数据列映射
+								</div>
+
+						</div>
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									数据列
+								</div>
+								<div class="col-4">
+                                    映射
+
+								</div>
+								<div class="col-5">
+ 									状态
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center ">
+								<div class="col-3">
+									value
+								</div>
+								<div class="col-4">
+                                    <input id="hcWordcloud_value" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5 ">
+ 									* 可选
+
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+								<div class="col-3">
+									url
+								</div>
+								<div class="col-4">
+                                    <input id="hcWordcloud_url" class="w-75 h-75 form-control-sm border border-1 bg-dark text-white font-content" type="text" value=""/>
+
+								</div>
+								<div class="col-5">
+ 									* 可选
+
+								</div>
+						</div>
+						<div class="row bg-dark ">
+								<div class="col-12 border-blue p-2">
+									数据源类型
+								</div>
+						</div>
+
+						<div class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+                                <select id="hcWordcloud_source_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                    <option  value="static_data">静态数据</option>
+                                    <option  value="excel_data">EXCEL/CSV</option>
+                                    <option  value="api_data">API</option>
+                                    <option  value="dbms_data">数据库</option>
+                                </select>
+                            </div>
+						</div>
+
+                        <!--数据源切换1:静态数据脚本设置-->
+						<div id="hcWordcloud_static_data" class="row p-2 align-items-center text-center">
+                            <div class="col-12" >
+
+                                <textarea id="hcWordcloud_input_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                            </div>
+						</div>
+
+                        <!--数据源切换2:Excel/CSV脚本设置-->
+						<div id="hcWordcloud_excel_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcWordcloud_source_excel" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" data-toggle="modal" data-target="#manager_excel" class="btn btn-primary btn-sm"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+                            </div>
+						</div>
+
+                        <!--数据源切换3:数据API-->
+						<div id="hcWordcloud_api_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+                               <div class="row">
+                                  <div class="col-12"> URL:</div>
+                                </div>
+                               <div class="row">
+                                  <div class="col-12"><span> 可将查询条件唯一标识配置至URL中，例:http://apitest?value=|value|</span><br><a id="hcWordcloud_pub_api"  data-toggle="modal" data-target="#pub_api_panel" href="#" class="normal-link">互联网数据接口</a></div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcWordcloud_api_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+
+                                  </div>
+                                </div>
+								<button id="hcWordcloud_api_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+                        <!--数据源切换4:数据库-->
+						<div id="hcWordcloud_dbms_data" class="row p-2" style="display: none">
+                            <div class="col-12">
+
+                               <div class="row">
+                                  <div class="col-12"> 选择已有数据源:</div>
+                                </div>
+                                <div class="row p-1">
+                                  <div class="col-9">
+                                     <select id="hcWordcloud_source_dbms" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+                                        <option>数据1</option>
+                                        <option>数据2</option>
+                                    </select>
+                                  </div>
+                                      <div class="col-3 align-items-end">
+                          			   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#manager_dbms"><font class="font-content">管理</font></button>
+                                      </div>
+                                </div>
+
+                               <div class="row">
+                                  <div class="col-12"> SQL:</div>
+                                </div>
+								<div class="row">
+									<div class="col-12">
+										<span> 可将查询条件唯一标识配置至sql中，例:select * from test where id='|id|' (数字类型不需单引号)</span>
+									</div>
+								</div>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <textarea id="hcWordcloud_sql_script" class="w-100 form-control bg-dark text-white input-script font-content" ></textarea>
+                                  </div>
+                                </div>
+								<button id="hcWordcloud_sql_test" data-toggle="modal" data-target="#script_test" type="button" class="my-2 btn btn-secondary btn-sm"><span class="font-content">模拟请求</span></button>
+						    </div>
+                        </div>
+
+ 						<div id="hcWordcloud_is_refresh" class="row p-2 mx-1 align-items-center">
+                            <div class="col-12" >
+                                <input id="hcWordcloud_input_refresh" class="form-check-input" type="checkbox" value="">
+                                      <hcWordcloud class="form-check-hcWordcloud" for="hcWordcloud_input_refresh">
+                                          自动更新请求每
+                                      </hcWordcloud>
+                                <input id="hcWordcloud_dur_refresh" class="form-control-sm border border-1 bg-dark text-white font-content input-sm" type="text" value="60"/> &nbsp;秒一次
+                            </div>
+						</div>
+
+
+					</div>
+                     <!--hcWordcloud交互-->
+					<div id="hcWordcloud_interact" class="tab-pane fade">
+						<div class="row bg-dark">
+								<div class="col-12 border-blue p-2">
+									该组件没有交互事件
+								</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+	</div>
+</div>
+
+
+<!--------- HTML公共控件 -------->
+
+    <!--上传首页背景图片模态框-->
+	<div class="modal fade" id="upimg" tabindex="-1" role="dialog"  aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="upimg_title">上传你的图片(JPG\PNG\GIF)</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<div class="file-loading">
+				  <input id="input_img" type="file">
+				</div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+				<button id="clear_background" type="button" class="btn btn-secondary btn-sm">清除</button>
+			  </div>
+		</div>
+	  </div>
+	</div>
+
+
+    <!--上传控件--图片模态框-->
+	<div class="modal fade" id="upControlImg" tabindex="-1" role="dialog"  aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="upControlImg_title">上传你的图片(JPG\PNG\GIF)</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<div class="file-loading">
+				  <input id="input_control_img" type="file">
+				</div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+			  </div>
+		</div>
+	  </div>
+	</div>
+
+    <!--用户DBMS管理-->
+    <div class="modal fade" id="manager_dbms" tabindex="-1" role="dialog"  aria-hidden="true" >
+      <div class="modal-dialog " role="document" >
+        <div class="modal-content" style="width: 700px" >
+              <div class="modal-header">
+                <h5 class="modal-title">数据库源管理</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body p-2 font-content" >
+                    <div class="row m-3">
+                        <div id="db_list" class="col-12"></div>
+
+                    </div>
+              </div>
+        </div>
+      </div>
+		<!--新建数据源模态框-->
+		<div class="modal fade" id="set_user_db" tabindex="-1" role="dialog"  aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title">添加数据库访问源</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body">
+					<div class="row">
+						<div class="col-12 font-content m-1">*类型</div>
+						<div class="col-12 m-1">
+							<select id="db_sql_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+								<option value="mysql">MYSQL</option>
+								<!--<option value="oracle">ORACLE</option>-->
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 font-content m-1">*数据源名称</div>
+						<div class="col-12 m-1">
+							<input id="db_sql_name" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 font-content m-1">*主机IP或域名</div>
+						<div class="col-12 m-1">
+							<input id="db_sql_host" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 font-content m-1">*用户名</div>
+						<div class="col-12 m-1">
+							<input id="db_sql_user" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 font-content m-1">*密码</div>
+						<div class="col-12 m-1">
+							<input id="db_sql_pwd" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="password" value="" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 font-content m-1">*端口</div>
+						<div class="col-12 m-1">
+							<input id="db_sql_port" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 font-content m-1">*数据库实例</div>
+						<div class="col-12 m-1">
+							<input id="db_sql_schema" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="" />
+						</div>
+					</div>
+					  <br>
+
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+					<button id="db_sql_save" type="button" class="btn btn-primary btn-sm" >保存</button>
+				  </div>
+			</div>
+		  </div>
+		</div>
+    </div>
+
+    <!--用户EXCEL数据源管理-->
+    <div class="modal fade" id="manager_excel" tabindex="-1" role="dialog"  aria-hidden="true" >
+      <div class="modal-dialog " role="document" >
+        <div class="modal-content" style="width: 700px" >
+              <div class="modal-header">
+                <h5 class="modal-title">excel源管理</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body p-2 font-content" >
+                    <div class="row m-3">
+                        <div id="excel_list" class="col-12"></div>
+
+                    </div>
+              </div>
+        </div>
+      </div>
+		<!--新建excel/csv数据源-->
+		<div class="modal fade" id="set_user_excel" tabindex="-1" role="dialog"  aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title">添加Excel/CSV数据源</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body">
+					<div class="row">
+						<div class="col-12 font-content m-1">*类型</div>
+						<div class="col-12 m-1">
+							<select id="excel_file_type" class="w-100 form-control form-control-sm border border-1 bg-dark text-white font-content">
+								<option value="excel">Excel</option>
+								<option value="csv">CSV</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 font-content m-1">*数据源名称</div>
+						<div class="col-12 m-1">
+							<input id="db_excel_name" class=" w-100 form-control-sm border border-1 bg-dark text-white font-content" type="text" value="" required/>
+						</div>
+					</div>
+
+					  <br>
+
+					  <input id="input_excel" type="file" >
+
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+					<button id="db_excel_save" type="button" class="btn btn-primary btn-sm" >保存</button>
+				  </div>
+			</div>
+		  </div>
+		</div>
+    </div>
+
+<!--脚本测试模态框-->
+	<div class="modal fade" id="script_test" tabindex="-1" role="dialog"  aria-hidden="true">
+	  <div class="modal-dialog " role="document">
+		<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title">请求详情</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body p-2 font-content">
+					<div class="row">
+					  <div class="col-12">
+						  请求脚本:
+						  <br>
+						  <textarea id="request_script" class="w-100 form-control  input-script font-content conf_modal" ></textarea>
+						  <br>
+						  请求结果:
+						  <br>
+						  <textarea id="request_result" class="w-100 form-control  input-script font-content conf_modal" ></textarea>
+					  </div>
+					</div>
+			  </div>
+			  <div class="modal-footer">
+			  </div>
+		</div>
+	  </div>
+	</div>
+
+<!--公共API管理-->
+<div class="modal fade" id="pub_api_panel" tabindex="-1" role="dialog"  aria-hidden="true" >
+  <div class="modal-dialog " role="document" >
+    <div class="modal-content" style="width: 700px" >
+          <div class="modal-header">
+            <h5 class="modal-title">互联网接口API管理</h5>
+            <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-2 font-content" >
+                <div class="row m-3">
+                    <div id="pub_api_list" class="col-12"></div>
+
+                </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+
+    <!---------右键菜单-->
+
+	<ul id="content_menu" class="list-group position-absolute font-content hover" style="display: none;z-index: 299">
+
+	</ul>
+
+{%end%}
+</body>
+</html>
